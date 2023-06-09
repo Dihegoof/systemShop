@@ -2,6 +2,8 @@ package com.dihego.dao;
 
 import java.sql.Statement;
 
+import javax.swing.table.DefaultTableModel;
+
 import com.dihego.Main;
 
 public class ClienteDAO {
@@ -19,7 +21,7 @@ public class ClienteDAO {
 		this.dataNascimento = dataNascimento;
 	}
 	
-	public void register() { 
+	public void registrar() { 
 		StringBuilder sb = new StringBuilder();
 		try {
 			Statement ps = Main.getMySql().getConn().createStatement();
@@ -28,7 +30,7 @@ public class ClienteDAO {
 			System.out.print(e.getMessage());
 		}
 	}
-
+	
 	public String getPrimeiroNome() {
 		return primeiroNome;
 	}

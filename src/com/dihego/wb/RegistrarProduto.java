@@ -4,11 +4,15 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
+import com.dihego.gerenciadores.GerenciadorProduto;
+import com.dihego.produto.Produto;
 import com.dihego.produto.Tipo;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -163,6 +167,25 @@ public class RegistrarProduto {
 		panelCorpo.add(btcVoltar);
 		
 		JButton btcConfirmar = new JButton("Confirmar");
+		btcConfirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(txtNome.getText().isEmpty() || txtMarca.getText().isEmpty() || cbTipo.getSelectedItem().equals("Nenhum") || txtPreco.getText() == null) { 
+					JOptionPane.showMessageDialog(null, "É preciso preencher os campos obrigatórios!");
+					return;
+				}
+				Produto produto = new Produto(txtNome.getText(), txtMarca.getText(), txtSabor.getText(), epDesc.getText(), Tipo.valueOf(cbTipo.getSelectedItem().toString().toUpperCase()), Double.valueOf(txtPreco.getText()));
+				if(!GerenciadorProduto.existe(produto)) { 
+					produto.registrar();
+					GerenciadorProduto.addProduto(produto);
+					JOptionPane.showMessageDialog(null, "Produto registrado com sucesso!");
+					frame.dispose();
+					Painel painel = new Painel();
+					painel.frame.setVisible(true);
+				} else { 
+					JOptionPane.showMessageDialog(null, "Já existe um produto com este nome!");
+				}
+			}
+		});
 		btcConfirmar.setFont(new Font("Arial", Font.BOLD, 11));
 		btcConfirmar.setBounds(223, 196, 89, 23);
 		panelCorpo.add(btcConfirmar);

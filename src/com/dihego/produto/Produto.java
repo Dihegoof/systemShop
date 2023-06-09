@@ -1,5 +1,9 @@
 package com.dihego.produto;
 
+import java.sql.Statement;
+
+import com.dihego.Main;
+
 public class Produto {
 	
 	String nome, marca, sabor, descricao;
@@ -13,6 +17,16 @@ public class Produto {
 		this.descricao = descricao;
 		this.tipo = tipo;
 		this.preco = preco;
+	}
+	
+	public void registrar() { 
+		StringBuilder sb = new StringBuilder();
+		try {
+			Statement ps = Main.getMySql().getConn().createStatement();
+			ps.executeUpdate(sb.append("INSERT INTO `produto` (`nome`, `marca`, `tipo`, `sabor`, `preco`, `descricao`) VALUES ('" + getNome() + "', '" + getMarca() + "', '" + getTipo().toString() + "', '" + getSabor() + "', '" + getPreco() + "', '" + getDescricao() + "');").toString());
+		} catch (Exception e) {
+			System.out.print(e.getMessage());
+		}
 	}
 
 	public String getNome() {

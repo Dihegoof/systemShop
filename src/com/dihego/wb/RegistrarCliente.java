@@ -6,6 +6,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
 import com.dihego.Main;
 import com.dihego.dao.ClienteDAO;
@@ -96,8 +100,8 @@ public class RegistrarCliente {
 				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 				String formattedDate = formatter.format(date);
 				ClienteDAO cliente = new ClienteDAO(txtPrimeiroNome.getText(), txtUltimoNome.getText(), txtCelular.getText(), txtCpf.getText(), txtRg.getText(), txtEmail.getText(), Integer.parseInt(formattedDate.replace("/", "")));
-				if(!GerenciadorCliente.exists(cliente)) { 
-					cliente.register();
+				if(!GerenciadorCliente.existe(cliente)) { 
+					cliente.registrar();
 					GerenciadorCliente.addCliente(cliente);
 					JOptionPane.showMessageDialog(null, "Cliente registrado com sucesso!");
 					frame.dispose();
@@ -160,6 +164,22 @@ public class RegistrarCliente {
 		panelCorpo.add(lblCelular);
 		
 		txtCelular = new JTextField();
+		txtCelular = new JTextField();
+		((AbstractDocument) txtCelular.getDocument()).setDocumentFilter(new DocumentFilter() {
+			@Override
+			public void insertString(FilterBypass fb, int offset, String text, AttributeSet attr) throws BadLocationException {
+				if (text.matches("\\d+")) {
+					super.insertString(fb, offset, text, attr);
+				}
+			}
+			
+			@Override
+			public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+				if (text.matches("\\d+")) {
+					super.replace(fb, offset, length, text, attrs);
+				}
+			}
+		});
 		txtCelular.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {

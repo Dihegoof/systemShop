@@ -27,7 +27,7 @@ public class GerenciadorCliente {
 		}
 	}
 	
-	public static boolean exists(ClienteDAO cliente) { 
+	public static boolean existe(ClienteDAO cliente) { 
 		for(ClienteDAO clientes : armazenadorCliente) { 
 			return clientes.getCpf().equals(cliente.getCpf());
 		}

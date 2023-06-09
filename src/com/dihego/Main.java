@@ -1,6 +1,7 @@
 package com.dihego;
 
 import com.dihego.gerenciadores.GerenciadorCliente;
+import com.dihego.gerenciadores.GerenciadorProduto;
 import com.dihego.mysql.MySql;
 import com.dihego.wb.Painel;
 
@@ -15,6 +16,7 @@ public class Main {
 		mySql = new MySql("localhost", "root", "", "systemshop");
 		try {
 			GerenciadorCliente.carregarClientes();
+			GerenciadorProduto.carregarProdutos();
 			/*
 			Login login = new Login();
 			login.frame.setVisible(true);

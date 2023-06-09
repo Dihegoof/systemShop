@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+
+import com.dihego.dao.TabelaCliente;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -15,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
 
 public class BuscarCliente {
 
@@ -96,10 +100,14 @@ public class BuscarCliente {
 		btnEditar.setBounds(315, 7, 89, 23);
 		panelTitulo_1.add(btnEditar);
 		
-		table = new JTable();
+		table = new JTable(new TabelaCliente());
 		table.setBounds(10, 39, 394, 122);
 		panelTitulo_1.add(table);
 		table.setBorder(border);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(10, 157, 394, -117);
+		panelTitulo_1.add(scrollPane);
 		
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
@@ -110,6 +118,5 @@ public class BuscarCliente {
 			}
 		});
 		btnVoltar.setBounds(10, 233, 89, 23);
-		frame.getContentPane().add(btnVoltar);
 	}
 }
